@@ -1,137 +1,105 @@
--- Standard awesome library
 require("awful")
 require("awful.autofocus")
 require("awful.rules")
--- Theme handling library
 require("beautiful")
--- Notification library
 require("naughty")
---Widget Lib
 require("vicious")
 require("scratch")
+beautiful.init("/home/ganja/.config/awesome/themes/custom/theme.lua")
 
-
-
--- {{{ Variable definitions
--- Themes define colours, icons, and wallpapers
-beautiful.init("/home/ganja/.config/awesome/theme.lua")
-
--- This is used later as the default terminal and editor to run.
 terminal = "urxvtc"
-editor = os.getenv("EDITOR") or "geany"
-editor_cmd = terminal .. " -e " .. editor
-browser = "opera"
+editor = "nano"
+browser = "iceweasel"
 filemanager = "thunar"
--- Default modkey.
--- Usually, Mod4 is the key with a logo between Control and Alt.
--- If you do not like this or do not have such a key,
--- I suggest you to remap Mod4 to another key using xmodmap or other tools.
--- However, you can use another modifier like Mod1, but it may interact with others.
+editor_cmd = terminal .. " -e " .. editor
+
 modkey = "Mod4"
 
--- Table of layouts to cover with awful.layout.inc, order matters.
 layouts =
 {
-    awful.layout.suit.floating,
-    awful.layout.suit.tile,
-    awful.layout.suit.tile.left,
-    awful.layout.suit.tile.bottom,
-    awful.layout.suit.tile.top,
-    awful.layout.suit.fair,
-    awful.layout.suit.fair.horizontal,
-    awful.layout.suit.spiral,
-    awful.layout.suit.spiral.dwindle,
-    awful.layout.suit.max,
-    awful.layout.suit.max.fullscreen,
-    awful.layout.suit.magnifier
+awful.layout.suit.floating,
+awful.layout.suit.tile,
+awful.layout.suit.tile.left,
+awful.layout.suit.tile.bottom,
+awful.layout.suit.tile.top,
+awful.layout.suit.fair,
+awful.layout.suit.fair.horizontal,
+awful.layout.suit.spiral,
+awful.layout.suit.spiral.dwindle,
+awful.layout.suit.max,
+awful.layout.suit.max.fullscreen,
+awful.layout.suit.magnifier
 }
 -- }}}
 
 -- {{{ Tags
- -- Define a tag table which will hold all screen tags.
- tags = {
-   names  = { "term", "www", "files", "misc" },
-   layout = { layouts[1], layouts[2], layouts[3], layouts[4]
-              
- }}
- for s = 1, screen.count() do
-     -- Each screen has its own tag table.
-     tags[s] = awful.tag(tags.names, s, tags.layout)
- end
- -- }}}
-
-
--- {{{ Menu
--- Create a laucher widget and a main menu
-myawesomemenu = {
-   { "manual", terminal .. " -e man awesome" },
-   { "edit config", editor_cmd .. " " .. awful.util.getdir("config") .. "/rc.lua" },
-   { "restart", awesome.restart },
-   { "quit", awesome.quit }
+-- Define a tag table which hold all screen tags.
+tags = {
+names = { "term", "www", "files", "misc" },
+layout = { layouts[2], layouts[2], layouts[2], layouts[2] }
 }
 
-mymainmenu = awful.menu({ items = { { "awesome", myawesomemenu, beautiful.awesome_icon },
-                                    { "open terminal", terminal }
-                                  }
-                        })
+for s = 1, screen.count() do
+tags[s] = awful.tag(tags.names, s, tags.layout)
+end
 
-mylauncher = awful.widget.launcher({ image = image(beautiful.awesome_icon),
-                                     menu = mymainmenu })
--- }}}
 
---Separators
+-- MPD widget
+--mpdicon = widget({ type = "imagebox", align = "center"  })
+--mpdicon.image = image("/home/ganja/.config/awesome/icons/mpd.png")
 
-spacer = widget({ type = "textbox" })
+--mpdwidget = widget({ type = "textbox", align = "center" })
+	--vicious.register(mpdwidget, vicious.widgets.mpd,
+	--function (widget, args)
+		--if   args["{state}"] == "Stop" then return "MPD: Stopped"
+	        	--else return '<span color="white">MPD:</span> '..
+		        --args["{Artist}"]..' - '.. args["{Title}"]
+			--end
+		--end)
+
+
+-- Separator
 separator = widget({ type = "textbox" })
-spacer.text = " "
-separator.text = "|"
--- }}}
+separator.text = " :: "
 
--- }}}
--- Create a netwidget (usage)
-dnicon = widget({ type = "imagebox" })
-upicon = widget({ type = "imagebox" })
-dnicon.image = image("/home/ganja/.config/awesome/icons/down.png")
-upicon.image = image("/home/ganja/.config/awesome/icons/up.png")
---Initialize widget
-netwidget = widget({ type = "textbox" })
--- Register widget
-vicious.register(netwidget, vicious.widgets.net, "${wlan0 down_kb}kb/s / ${wlan0 up_kb}kb/s", 1)
--- }}}
-
--- {{{ Memory usage
+-- Memory widget
 memicon = widget({ type = "imagebox" })
 memicon.image = image("/home/ganja/.config/awesome/icons/mem.png")
--- Initialize widget
-memwidget = widget({ type = "textbox" })
--- Register widget
-vicious.register(memwidget, vicious.widgets.mem, "$1% $2MB / $3MB", 13)
--- }}}
 
--- {{{ Cpu usage
+memwidget = widget({ type = "textbox" })
+vicious.register(memwidget, vicious.widgets.mem, "mem: $1% ($2MB/$3MB)", 5)
+
+-- CPU Widget
 cpuicon = widget({ type = "imagebox" })
 cpuicon.image = image("/home/ganja/.config/awesome/icons/cpu.png")
--- Initialize widget
+
 cpuwidget = widget({ type = "textbox" })
--- Register widget
-vicious.register(cpuwidget, vicious.widgets.cpu, "$1%", 2)
--- }}}
-  
+vicious.register(cpuwidget, vicious.widgets.cpu, "cpu: $1%", 2)
 
+-- Network Traffic Widget
+neticon = widget({ type = "imagebox" })
+neticon.image = image( "/home/ganja/.config/awesome/icons/net-wifi4.png" )
 
+netdownicon = widget({ type = "imagebox" })
+netdownicon.image = image("/home/ganja/.config/awesome/icons/down.png")
 
+netdownwidget = widget({type = "textbox" })
+vicious.register(netdownwidget, vicious.widgets.net, "${wlan0 down_kb}", 1)
 
--- {{{ Wibox
--- Create a textclock widget
-clockicon = widget({ type = "imagebox" })
-clockicon.image = image("/home/ganja/.config/awesome/icons/time.png")
+netupicon = widget({ type = "imagebox" })
+netupicon.image = image("/home/ganja/.config/awesome/icons/up.png")
+
+netupwidget = widget({ type = "textbox" })
+vicious.register(netupwidget, vicious.widgets.net, "${wlan0 up_kb}", 1)
+
+--
+
 mytextclock = awful.widget.textclock({ align = "right" })
 
--- Create a systray
 mysystray = widget({ type = "systray" })
 
--- Create a wibox for each screen and add it
 mywibox = {}
+mybottomwibox = {}
 mypromptbox = {}
 mylayoutbox = {}
 mytaglist = {}
@@ -143,31 +111,6 @@ mytaglist.buttons = awful.util.table.join(
                     awful.button({ }, 4, awful.tag.viewnext),
                     awful.button({ }, 5, awful.tag.viewprev)
                     )
-mytasklist = {}
-mytasklist.buttons = awful.util.table.join(
-                     awful.button({ }, 1, function (c)
-                                              if not c:isvisible() then
-                                                  awful.tag.viewonly(c:tags()[1])
-                                              end
-                                              client.focus = c
-                                              c:raise()
-                                          end),
-                     awful.button({ }, 3, function ()
-                                              if instance then
-                                                  instance:hide()
-                                                  instance = nil
-                                              else
-                                                  instance = awful.menu.clients({ width=250 })
-                                              end
-                                          end),
-                     awful.button({ }, 4, function ()
-                                              awful.client.focus.byidx(1)
-                                              if client.focus then client.focus:raise() end
-                                          end),
-                     awful.button({ }, 5, function ()
-                                              awful.client.focus.byidx(-1)
-                                              if client.focus then client.focus:raise() end
-                                          end))
 
 for s = 1, screen.count() do
     -- Create a promptbox for each screen
@@ -183,32 +126,50 @@ for s = 1, screen.count() do
     -- Create a taglist widget
     mytaglist[s] = awful.widget.taglist(s, awful.widget.taglist.label.all, mytaglist.buttons)
 
-
-
     -- Create the wibox
     mywibox[s] = awful.wibox({ position = "top", screen = s })
     -- Add widgets to the wibox - order matters
     mywibox[s].widgets = {
         {
-            mylauncher,
             mytaglist[s],
+	    separator,
             mypromptbox[s],
-            mylayoutbox[s],
             layout = awful.widget.layout.horizontal.leftright
         },
-        s == 1 and mysystray or nil,
-        mytextclock, spacer, clockicon,
-        separator, spacer, memwidget, memicon,
-        separator, spacer, cpuwidget, cpuicon, 
-        separator, spacer, upicon, netwidget, dnicon,
+        mylayoutbox[s],
+        mytextclock,
+	separator,
         layout = awful.widget.layout.horizontal.rightleft
     }
+
+    mybottomwibox[s] = awful.wibox({ position = "bottom", screen = s})
+    mybottomwibox[s].widgets = 
+    {
+	{
+		mysystray,
+		--mpdwidget,
+		--mpdicon,
+		layout = awful.widget.layout.horizontal.rightleft
+	},
+	memicon,
+	memwidget,
+	separator,
+	cpuicon,
+	cpuwidget,
+	separator,
+	neticon,
+	netdownicon,
+	netdownwidget,
+	netupicon,
+	netupwidget,
+	layout = awful.widget.layout.horizontal.leftright
+    }
+
 end
+
+    
 -- }}}
 
-
--- {{{
----{{{
 -- {{{ Mouse bindings
 root.buttons(awful.util.table.join(
     awful.button({ }, 3, function () mymainmenu:toggle() end),
@@ -233,7 +194,7 @@ globalkeys = awful.util.table.join(
             awful.client.focus.byidx(-1)
             if client.focus then client.focus:raise() end
         end),
-    awful.key({ modkey,           }, "å", function () mymainmenu:show(true)        end),
+    awful.key({ modkey,           }, "å", function () mymainmenu:show({keygrabber=true}) end),
 
     -- Layout manipulation
     awful.key({ modkey, "Shift"   }, "j", function () awful.client.swap.byidx(  1)    end),
@@ -250,10 +211,10 @@ globalkeys = awful.util.table.join(
         end),
 
     -- Standard program
-    awful.key({ modkey,           }, "w", function () awful.util.spawn(filemanager)  end),
     awful.key({ modkey,           }, "s", function () scratch.pad.toggle() end),
-    awful.key({ modkey,           }, "f", function () awful.util.spawn(browser)  end),
     awful.key({ modkey,           }, "x", function () awful.util.spawn(terminal) end),
+    awful.key({ modkey,           }, "f", function () awful.util.spawn(browser) end),
+    awful.key({ modkey,           }, "w", function () awful.util.spawn(filemanager) end),
     awful.key({ modkey, "Control" }, "r", awesome.restart),
     awful.key({ modkey, "Shift"   }, "q", awesome.quit),
 
@@ -266,7 +227,7 @@ globalkeys = awful.util.table.join(
     awful.key({ modkey,           }, "space", function () awful.layout.inc(layouts,  1) end),
     awful.key({ modkey, "Shift"   }, "space", function () awful.layout.inc(layouts, -1) end),
 
--- Prompt
+    -- Prompt
     awful.key({ modkey },            "r",     function () mypromptbox[mouse.screen]:run() end),
 
     awful.key({ modkey }, "ä",
@@ -278,17 +239,15 @@ globalkeys = awful.util.table.join(
               end)
 )
 
-
-
-
-
 clientkeys = awful.util.table.join(
+    --awful.key({ modkey,           }, "f",      function (c) c.fullscreen = not c.fullscreen  end),
     awful.key({ modkey,           },  "d",     function (c) scratch.pad.set(c, 0.60, 0.60, true) end),
     awful.key({ modkey,           }, "c",      function (c) c:kill()                         end),
     awful.key({ modkey, "Control" }, "space",  awful.client.floating.toggle                     ),
     awful.key({ modkey, "Control" }, "Return", function (c) c:swap(awful.client.getmaster()) end),
     awful.key({ modkey,           }, "o",      awful.client.movetoscreen                        ),
     awful.key({ modkey, "Shift"   }, "r",      function (c) c:redraw()                       end),
+    awful.key({ modkey,           }, "t",      function (c) c.ontop = not c.ontop            end),
     awful.key({ modkey,           }, "n",      function (c) c.minimized = not c.minimized    end),
     awful.key({ modkey,           }, "m",
         function (c)
@@ -356,22 +315,17 @@ awful.rules.rules = {
                      buttons = clientbuttons } },
     { rule = { class = "MPlayer" },
       properties = { floating = true } },
-    { rule = { class = "pinentry" },
+    { rule = { class = "Gimp" },
       properties = { floating = true } },
-    { rule = { class = "gimp" },
+    { rule = { class = "Chromium" },
+      properties = { tag = tags[1][2] } },
+    { rule = { class = "Wine" },
       properties = { floating = true } },
-    -- Set Firefox to always map on tags number 2 of screen 1.
-    -- { rule = { class = "Firefox" },
-    --   properties = { tag = tags[1][2] } },
 }
 -- }}}
 
--- {{{ Signals
--- Signal function to execute when a new client appears.
 client.add_signal("manage", function (c, startup)
-    -- Add a titlebar
-    -- awful.titlebar.add(c, { modkey = modkey })
-
+    
     -- Enable sloppy focus
     c:add_signal("mouse::enter", function(c)
         if awful.layout.get(c.screen) ~= awful.layout.suit.magnifier
@@ -396,9 +350,3 @@ end)
 client.add_signal("focus", function(c) c.border_color = beautiful.border_focus end)
 client.add_signal("unfocus", function(c) c.border_color = beautiful.border_normal end)
 -- }}}
-
-naughty_width = 600 -- in pixels
-naughty.config.presets.low.width = naughty_width
-naughty.config.presets.normal.width = naughty_width
-naughty.config.presets.critical.width = naughty_width
-

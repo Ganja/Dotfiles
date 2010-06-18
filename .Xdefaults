@@ -111,6 +111,10 @@ rxvt.colorIT:           #bbbbbb
 rxvt.colorUL:           #999999
 rxvt.underlineColor:    #999999
 rxvt.borderless:        true
+URxvt.urlLauncher: iceweasel
+URxvt.matcher.button: 1
+URxvt.perl-ext-common: matcher,readline
+
 
 !*background:       #151515
 !*foreground:       #cacaca
@@ -175,22 +179,49 @@ rxvt.borderless:        true
 !*color15: #FFFFFF
 
 !Arthur Colors
-*color0:                   #3d352a
-*color1:                   #cd5c5c
-*color2:                   #86af80
-*color3:                   #e8ae5b
-*color4:                   #6495ed
-*color5:                   #deb887
-*color6:                   #b0c4de
-*color7:                   #bbaa99
-*color8:                   #554444
-*color9:                   #cc5533
-*color10:                  #88aa22
-*color11:                  #ffa75d
-*color12:                  #87ceeb
-*color13:                  #996600
-*color14:                  #b0c4de
-*color15:                  #ddccbb
+!*color0:                   #3d352a
+!*color1:                   #cd5c5c
+!*color2:                   #86af80
+!*color3:                   #e8ae5b
+!*color4:                   #6495ed
+!*color5:                   #deb887
+!*color6:                   #b0c4de
+!*color7:                   #bbaa99
+!*color8:                   #554444
+!*color9:                   #cc5533
+!*color10:                  #88aa22
+!*color11:                  #ffa75d
+!*color12:                  #87ceeb
+!*color13:                  #996600
+!*color14:                  #b0c4de
+!*color15:                  #ddccbb
+
+! Molokai MOD
+!black 
+*color0 : #222222
+*color8 : #454545
+!red
+*color1 : #F92672
+*color9 : #F92672
+!green
+*color2 : #A6E22E
+*color10: #A6E22E
+!yellow
+*color3 : #FD971F
+*color11: #FD971F
+!blue
+*color4 : #4682B4
+*color12: #4682B4
+!magenta
+*color5 : #AE81FF
+*color13: #AE81FF
+!cyan
+*color6: #89b6e2
+*color14: #46a4ff
+!white
+*color7 : #FFFFFF
+*color15: #FFFFFF
+
 
 !thayer colors
 
