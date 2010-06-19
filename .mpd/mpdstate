@@ -1,0 +1,25 @@
+audio_device_state:1:My ALSA Device
+state: play
+current: 13
+time: 53
+random: 0
+repeat: 0
+single: 0
+consume: 0
+crossfade: 0
+playlist_begin
+0:The Psycho Realm - The Psycho Realm  - 1997/The Psycho Realm - 01 - Psycho City blocks.mp3
+1:The Psycho Realm - The Psycho Realm  - 1997/The Psycho Realm - 02 - Showdown.mp3
+2:The Psycho Realm - The Psycho Realm  - 1997/The Psycho Realm - 03 - The Big Payback.mp3
+3:The Psycho Realm - The Psycho Realm  - 1997/The Psycho Realm - 04 - Premonitions.mp3
+4:The Psycho Realm - The Psycho Realm  - 1997/The Psycho Realm - 05 - Stone Garden.mp3
+5:The Psycho Realm - The Psycho Realm  - 1997/The Psycho Realm - 06 - Temporary Insanity.mp3
+6:The Psycho Realm - The Psycho Realm  - 1997/The Psycho Realm - 07 - Doors Intro Confessions Of A Drug Addict.mp3
+7:The Psycho Realm - The Psycho Realm  - 1997/The Psycho Realm - 08 - The Psycho Ward   Who Are You.mp3
+8:The Psycho Realm - The Psycho Realm  - 1997/The Psycho Realm - 09 - Love Letters Intro Love From The Sick Side .mp3
+9:The Psycho Realm - The Psycho Realm  - 1997/The Psycho Realm - 10 - R. U. Experienced Outro.mp3
+10:The Psycho Realm - The Psycho Realm  - 1997/The Psycho Realm - 11 - Psyclones.mp3
+11:The Psycho Realm - The Psycho Realm  - 1997/The Psycho Realm - 12 - Lost Cities.mp3
+12:The Psycho Realm - The Psycho Realm  - 1997/The Psycho Realm - 13 - La Conecta Intro La Conecta.mp3
+13:The Psycho Realm - The Psycho Realm  - 1997/The Psycho Realm - 14 - La Conecta (PT. 2).mp3
+playlist_end
