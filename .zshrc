@@ -60,7 +60,8 @@ export yellow=$'%{\e[0;33m%}'
 # export PAGER="most"
 #fi
 
-
+PATH=$PATH:$HOME/bin
+export PATH
 
 # autoloads
 autoload -U compinit
@@ -73,8 +74,8 @@ colors
 zmodload -i zsh/complist
 
 # -----/ default prompt /-----
-PROMPT='${blue}%n${NC}@${green}%m${red} %~ ${yellow}%%${NC} '
-RPROMPT='${blue}<${NC}%T${blue}>${NC}'
+PROMPT='${green}%n${red}@${yellow}%m${red} %~ ${red}%%${NC} '
+RPROMPT='${green}<${NC}%T${yellow}>${NC}'
 
 # -----/ server prompts /-----
 case `hostname` in
