@@ -1,0 +1,9 @@
+#!/bin/sh
+#
+# file			~/bin/cleanram
+# author		Tiago Vale
+# owner			Tiago Vale
+# modified	14:45 31 october 2009
+#	descr			shell script that syncs fs with cache and clears it
+
+sync; echo 3 > /proc/sys/vm/drop_caches
